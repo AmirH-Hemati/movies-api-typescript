@@ -22,7 +22,13 @@ const movieSchema = new mongoose.Schema<MovieDocument>(
     year: { type: Number, required: [true, "movie must have a year!"] },
     rating: { type: Number, min: 1, max: 10, default: 9 },
     genre: [String],
-    actor: [{ type: mongoose.Schema.ObjectId, ref: "Actor" }],
+    actor: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Actor",
+        required: [true, "actor can not be empty"],
+      },
+    ],
   },
   { timestamps: true }
 );
