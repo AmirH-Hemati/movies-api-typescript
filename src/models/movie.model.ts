@@ -5,7 +5,7 @@ export interface MovieAttr {
   year: number;
   rating?: number;
   genre: string[];
-  actor: mongoose.Types.ObjectId[];
+  actors: mongoose.Types.ObjectId[];
 }
 
 export interface MovieDocument extends MovieAttr, mongoose.Document {
@@ -22,7 +22,7 @@ const movieSchema = new mongoose.Schema<MovieDocument>(
     year: { type: Number, required: [true, "movie must have a year!"] },
     rating: { type: Number, min: 1, max: 10, default: 9 },
     genre: [String],
-    actor: [
+    actors: [
       {
         type: mongoose.Schema.ObjectId,
         ref: "Actor",
@@ -33,4 +33,11 @@ const movieSchema = new mongoose.Schema<MovieDocument>(
   { timestamps: true }
 );
 
+movieSchema.pre<mongoose.Query<MovieDocument[], MovieDocument>>(
+  /^find/,
+  function (next) {
+    this.populate({ path: "actors" });
+    next();
+  }
+);
 export default mongoose.model<MovieDocument>("Movie", movieSchema);
