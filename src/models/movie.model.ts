@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export interface Movie {
+export interface MovieAttr {
   title: string;
   year: number;
   rating?: number;
@@ -8,7 +8,7 @@ export interface Movie {
   actor: mongoose.Types.ObjectId[];
 }
 
-export interface MovieDocument extends Movie, mongoose.Document {
+export interface MovieDocument extends MovieAttr, mongoose.Document {
   createdAt: Date;
   updatedAt: Date;
 }
