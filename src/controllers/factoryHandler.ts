@@ -1,3 +1,4 @@
+import ApiFeatures from "../utils/ApiFeatures";
 import AppError from "../utils/AppError";
 import catchAsync from "../utils/catchAsync";
 import { Document, Model } from "mongoose";
@@ -11,7 +12,13 @@ export const createOne = <T extends Document>(Model: Model<T>) => {
 
 export const getAll = <T extends Document>(Model: Model<T>) => {
   return catchAsync(async (req, res, next) => {
-    const docs = await Model.find();
+    const features = new ApiFeatures<T>(Model, req.query)
+      .filter()
+      .Sort()
+      .limitFields()
+      .paginate();
+
+    const docs = await features.query;
     res.status(200).json({ status: "success", data: { data: docs } });
   });
 };
