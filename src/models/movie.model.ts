@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
+import { Movie } from "../schema/movie.schema";
+// export interface MovieAttr {
+//   title: string;
+//   year: number;
+//   rating?: number;
+//   genre: string[];
+//   actors: mongoose.Types.ObjectId[];
+// }
 
-export interface MovieAttr {
-  title: string;
-  year: number;
-  rating?: number;
-  genre: string[];
-  actors: mongoose.Types.ObjectId[];
-}
-
-export interface MovieDocument extends MovieAttr, mongoose.Document {
+export interface MovieDocument extends Movie, mongoose.Document {
   createdAt: Date;
   updatedAt: Date;
 }

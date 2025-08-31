@@ -7,6 +7,6 @@ export default class AppError extends Error {
     super(message);
     this.statusCode = statusCode;
     this.message = message;
-    this.status = `${statusCode}`.startsWith("4") ? "faile" : "error";
+    this.status = `${statusCode}`.startsWith("4") ? "faild" : "error";
   }
 }
